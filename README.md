@@ -31,7 +31,7 @@ npm run dev
 
 ## Folder Structure
 The project structure is organized as follows:
-.
+```
 ├── public
 │   ├── logo.png
 ├── src
@@ -49,6 +49,7 @@ The project structure is organized as follows:
 ├── .gitignore
 ├── package.json
 ├── README.md
+```
 
 * The `index.html` file is the entry point of the application.
 * It loads the `main.jsx` that renders the `App` component from `App.jsx`
