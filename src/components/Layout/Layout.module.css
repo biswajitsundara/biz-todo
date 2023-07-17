@@ -1,0 +1,31 @@
+.layoutContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.header {
+  grid-column: 1 / -1;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.side {
+  padding: 20px;
+}
+
+.main {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 80%;
+}
+
+.footer {
+  grid-column: 1 / -1;
+}

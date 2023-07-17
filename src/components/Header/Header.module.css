@@ -1,0 +1,8 @@
+.headerbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-light-color);
+  color: var(--white-color);
+  padding-left: 20px;
+  padding-right: 20px;
+}
