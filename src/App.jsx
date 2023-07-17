@@ -1,13 +1,19 @@
-import './App.css'
+import "./App.css";
+import Layout from "./components/Layout/Layout";
+import Header from "./components/Header/Header";
+import SideNav from "./components/Sidenav/SideNav";
+import MainContent from "./components/Main/MainContent";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-
-
   return (
-    <>
-      <h1>Hello Todo</h1>
-    </>
-  )
+    <Layout
+      header={<Header />}
+      sideNav={<SideNav />}
+      main={<MainContent />}
+      footer={<Footer />}
+    />
+  );
 }
 
-export default App
+export default App;
