@@ -1,0 +1,27 @@
+/* SideNav Styles */
+.sidenav {
+  display: flex;
+  flex-direction: column;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+  padding: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.navItem:hover {
+  background-color: #d0d0d0;
+}
+
+.navItem.active {
+  background-color: #6ea0d3;
+  color: #fff;
+}
+
+.navItem i {
+  margin-right: 10px;
+}
