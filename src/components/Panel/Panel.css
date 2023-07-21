@@ -1,0 +1,68 @@
+.panel-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.panel-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.panel-secondary {
+  color: #383d41;
+  background-color: #e2e3e5;
+  border-color: #d6d8db;
+}
+
+.panel-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.panel-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.panel-info {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.panel-header h4 {
+  padding: 0%;
+  margin: 0%;
+}
+
+.panel {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0%;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+}
+
+.icons i {
+  cursor: pointer;
+}
+
+.panel-header,
+.panel-body {
+  padding: 10px;
+}
