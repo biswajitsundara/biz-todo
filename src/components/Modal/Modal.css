@@ -131,7 +131,7 @@ textarea[readonly] {
   pointer-events: none;
 }
 
-select[name="dropdown"] {
+select[name="task-category"] {
   font-family: inherit;
   font-size: 14px;
   width: 89%;
@@ -142,9 +142,10 @@ select[name="dropdown"] {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   cursor: pointer;
+  color: #808080;
 }
 
-select[name="dropdown"]:focus {
+select[name="task-category"]:focus {
   outline: none;
   border: 1px solid #007bff;
   background-color: white;
