@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "./Modal.css";
+import ReactDOM from "react-dom";
+import { useModal } from "../../Hooks/ModalContext";
 
 const Modal = () => {
+  const { isModalOpen, closeModal } = useModal();
+
   const [taskname, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
+  const [taskCategory, setTaskCategory] = useState("");
 
   const handleTaskChange = (event) => {
     setTaskName(event.target.value);
@@ -13,15 +18,35 @@ const Modal = () => {
     setTaskDesc(event.target.value);
   };
 
+  const handleCategoryChange = (event) => {
+    setTaskCategory(event.target.value);
+  };
+
+  const resetModalData = () => {
+    setTaskName("");
+    setTaskDesc("");
+    setTaskCategory("");
+  };
+
   const handleSave = () => {
-    console.log("Modal saved");
+    const newData = { taskname, taskDesc, taskCategory };
+    newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    console.log("Modal saved" + JSON.stringify(newData));
+    resetModalData();
+    closeModal();
   };
 
   const handleCancel = () => {
     console.log("Modal Cancelled");
+    resetModalData();
+    closeModal();
   };
 
-  return (
+  if (!isModalOpen) {
+    return null; // Hide the modal if it's not open
+  }
+
+  return ReactDOM.createPortal(
     <div className="modal" data-testid="modal">
       <div className="modal-content">
         <div className="titleCloseBtn">
@@ -41,10 +66,15 @@ const Modal = () => {
               required
             />
 
-            <select name="dropdown">
-              <option value="option1">Todos</option>
-              <option value="option2">Tasks</option>
-              <option value="option3">Notes</option>
+            <select
+              name="task-category"
+              value={taskCategory}
+              onChange={handleCategoryChange}
+            >
+              <option value="">Select Category</option>
+              <option value="todos">Todos</option>
+              <option value="tasks">Tasks</option>
+              <option value="notes">Notes</option>
             </select>
 
             <textarea
@@ -70,7 +100,8 @@ const Modal = () => {
           </>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById("portal-root")
   );
 };
 
