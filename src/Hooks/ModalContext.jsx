@@ -16,6 +16,16 @@ export const ModalProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
+  const saveTaskData = (data) => {
+    const taskInfo = [...taskData, data];
+    setTaskData(taskInfo);
+  };
+
+  const deleteTaskData = (id) => {
+    const updatedTaskData = taskData.filter((task) => task.id != id);
+    setTaskData(updatedTaskData);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -25,6 +35,8 @@ export const ModalProvider = ({ children }) => {
         isReadOnly,
         openModal,
         closeModal,
+        saveTaskData,
+        deleteTaskData,
       }}
     >
       {children}
