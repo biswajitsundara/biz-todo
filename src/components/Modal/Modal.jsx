@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { useModal } from "../../Hooks/ModalContext";
 
 const Modal = () => {
-  const { isModalOpen, closeModal } = useModal();
+  const { isModalOpen, closeModal, saveTaskData } = useModal();
 
   const [taskname, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
@@ -31,7 +31,7 @@ const Modal = () => {
   const handleSave = () => {
     const newData = { taskname, taskDesc, taskCategory };
     newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-    console.log("Modal saved" + JSON.stringify(newData));
+    saveTaskData(newData);
     resetModalData();
     closeModal();
   };

@@ -1,0 +1,8 @@
+.nodataHeader {
+  color: rgb(112, 112, 195);
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+}
