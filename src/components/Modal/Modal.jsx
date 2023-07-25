@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Modal.css";
 import ReactDOM from "react-dom";
 import { useModal } from "../../Hooks/ModalContext";
 
 const Modal = () => {
-  const { isModalOpen, closeModal, saveTaskData } = useModal();
+  const { isModalOpen, closeModal, saveTaskData, modalData, updateTaskData } =
+    useModal();
 
   const [taskname, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
   const [taskCategory, setTaskCategory] = useState("");
+
+  useEffect(() => {
+    if (Object.keys(modalData).length != 0) {
+      setTaskName(modalData.taskname);
+      setTaskDesc(modalData.taskDesc);
+      setTaskCategory(modalData.taskCategory);
+    }
+  }, [modalData]);
 
   const handleTaskChange = (event) => {
     setTaskName(event.target.value);
@@ -30,8 +39,16 @@ const Modal = () => {
 
   const handleSave = () => {
     const newData = { taskname, taskDesc, taskCategory };
-    newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-    saveTaskData(newData);
+
+    const modalDataExists = Object.keys(modalData).length !== 0;
+    if (modalDataExists) {
+      newData.id = modalData.id;
+      updateTaskData(newData);
+    } else {
+      newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+      saveTaskData(newData);
+    }
+
     resetModalData();
     closeModal();
   };
