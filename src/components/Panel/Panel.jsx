@@ -2,7 +2,7 @@ import "./Panel.css";
 import { useModal } from "../../Hooks/ModalContext";
 
 const Panel = ({ taskid, taskname, taskCategory, taskdesc }) => {
-  const { deleteTaskData } = useModal();
+  const { deleteTaskData, editTaskData } = useModal();
 
   const panelTypes = {
     todos: "info",
@@ -11,7 +11,7 @@ const Panel = ({ taskid, taskname, taskCategory, taskdesc }) => {
   };
 
   const handleEditTask = (taskid) => {
-    console.log("Task is edited");
+    editTaskData(taskid);
   };
 
   const handleDeleteTask = (taskid) => {

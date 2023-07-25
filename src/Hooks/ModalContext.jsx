@@ -12,13 +12,29 @@ export const ModalProvider = ({ children }) => {
     setIsModalOpen(true);
   };
 
+  const editTaskData = (id) => {
+    const taskInfo = taskData.filter((task) => task.id === id);
+    console.log(taskInfo[0]);
+    setModalData(taskInfo[0]);
+    setIsModalOpen(true);
+  };
+
   const closeModal = () => {
+    setModalData({});
     setIsModalOpen(false);
   };
 
   const saveTaskData = (data) => {
     const taskInfo = [...taskData, data];
     setTaskData(taskInfo);
+  };
+
+  const updateTaskData = (data) => {
+    const updatedTaskData = taskData.map((task) =>
+      data.id == task.id ? data : task
+    );
+
+    setTaskData(updatedTaskData);
   };
 
   const deleteTaskData = (id) => {
@@ -34,6 +50,8 @@ export const ModalProvider = ({ children }) => {
         taskData,
         isReadOnly,
         openModal,
+        editTaskData,
+        updateTaskData,
         closeModal,
         saveTaskData,
         deleteTaskData,
