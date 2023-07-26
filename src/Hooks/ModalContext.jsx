@@ -14,7 +14,6 @@ export const ModalProvider = ({ children }) => {
 
   const editTaskData = (id) => {
     const taskInfo = taskData.filter((task) => task.id === id);
-    console.log(taskInfo[0]);
     setModalData(taskInfo[0]);
     setIsModalOpen(true);
   };
@@ -22,11 +21,19 @@ export const ModalProvider = ({ children }) => {
   const closeModal = () => {
     setModalData({});
     setIsModalOpen(false);
+    setIsReadOnly(false);
   };
 
   const saveTaskData = (data) => {
     const taskInfo = [...taskData, data];
     setTaskData(taskInfo);
+  };
+
+  const readTaskData = (id) => {
+    const taskInfo = taskData.filter((task) => task.id === id);
+    setModalData(taskInfo[0]);
+    setIsModalOpen(true);
+    setIsReadOnly(true);
   };
 
   const updateTaskData = (data) => {
@@ -52,6 +59,7 @@ export const ModalProvider = ({ children }) => {
         openModal,
         editTaskData,
         updateTaskData,
+        readTaskData,
         closeModal,
         saveTaskData,
         deleteTaskData,

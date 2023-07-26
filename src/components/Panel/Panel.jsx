@@ -2,7 +2,7 @@ import "./Panel.css";
 import { useModal } from "../../Hooks/ModalContext";
 
 const Panel = ({ taskid, taskname, taskCategory, taskdesc }) => {
-  const { deleteTaskData, editTaskData } = useModal();
+  const { deleteTaskData, editTaskData, readTaskData } = useModal();
 
   const panelTypes = {
     todos: "info",
@@ -19,7 +19,7 @@ const Panel = ({ taskid, taskname, taskCategory, taskdesc }) => {
   };
 
   const handleReadTask = (taskid) => {
-    console.log("task is read");
+    readTaskData(taskid);
   };
 
   return (
