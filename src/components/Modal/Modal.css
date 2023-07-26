@@ -150,3 +150,12 @@ select[name="task-category"]:focus {
   border: 1px solid #007bff;
   background-color: white;
 }
+
+select:disabled {
+  border: 1px solid grey;
+  background-color: #f7f7f7;
+  color: #808080;
+  cursor: pointer;
+  pointer-events: none;
+}
+

@@ -4,18 +4,30 @@ import ReactDOM from "react-dom";
 import { useModal } from "../../Hooks/ModalContext";
 
 const Modal = () => {
-  const { isModalOpen, closeModal, saveTaskData, modalData, updateTaskData } =
-    useModal();
+  const {
+    isModalOpen,
+    closeModal,
+    saveTaskData,
+    modalData,
+    updateTaskData,
+    isReadOnly,
+  } = useModal();
 
   const [taskname, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
   const [taskCategory, setTaskCategory] = useState("");
+  const [headingText, setHeadingText] = useState("");
 
   useEffect(() => {
     if (Object.keys(modalData).length != 0) {
+      isReadOnly
+        ? setHeadingText("Task Details")
+        : setHeadingText("Edit Task Details");
       setTaskName(modalData.taskname);
       setTaskDesc(modalData.taskDesc);
       setTaskCategory(modalData.taskCategory);
+    } else {
+      setHeadingText("Add Task Details");
     }
   }, [modalData]);
 
@@ -54,7 +66,6 @@ const Modal = () => {
   };
 
   const handleCancel = () => {
-    console.log("Modal Cancelled");
     resetModalData();
     closeModal();
   };
@@ -70,7 +81,7 @@ const Modal = () => {
           <button onClick={handleCancel}>X</button>
         </div>
         <div className="modal-title">
-          <h2>Add Task</h2>
+          <h2>{headingText}</h2>
         </div>
         <div className="modal-body">
           <form>
@@ -80,6 +91,7 @@ const Modal = () => {
               name="task-summary"
               value={taskname}
               onChange={handleTaskChange}
+              readOnly={isReadOnly}
               required
             />
 
@@ -87,6 +99,7 @@ const Modal = () => {
               name="task-category"
               value={taskCategory}
               onChange={handleCategoryChange}
+              disabled={isReadOnly}
             >
               <option value="">Select Category</option>
               <option value="todos">Todos</option>
@@ -101,20 +114,29 @@ const Modal = () => {
               placeholder="Enter Task Details"
               value={taskDesc}
               onChange={handleDescChange}
+              readOnly={isReadOnly}
             />
           </form>
         </div>
         {/**End of Modal Body */}
 
         <div className="modal-footer">
-          <>
-            <button className="button btn-primary" onClick={handleSave}>
-              Save
-            </button>
+          {!isReadOnly && (
+            <>
+              <button className="button btn-primary" onClick={handleSave}>
+                {Object.keys(modalData).length != 0 ? "Update" : "Save"}
+              </button>
+              <button className="button btn-danger" onClick={handleCancel}>
+                Cancel
+              </button>
+            </>
+          )}
+
+          {isReadOnly && (
             <button className="button btn-danger" onClick={handleCancel}>
-              Cancel
+              Close
             </button>
-          </>
+          )}
         </div>
       </div>
     </div>,
