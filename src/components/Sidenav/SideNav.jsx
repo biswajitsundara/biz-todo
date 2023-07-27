@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SideNav.module.css";
+import { useModal } from "../../Hooks/ModalContext";
 
 const items = [
   { icon: "fa-chalkboard", name: "Dashboard", isOpened: false },
@@ -9,14 +10,18 @@ const items = [
 ];
 
 const SideNav = () => {
+  const { filterTasks, switchOnFilter } = useModal();
+
   const [activeItem, setActiveItem] = useState(null);
   const [sidebarItems, setSidebarItems] = useState(items);
 
-  const handleItemClick = (index) => {
+  const handleItemClick = (e, index) => {
     setActiveItem(index);
     const updatedSidebarItems = sidebarItems.map((item, i) => {
       return { ...item, isOpened: i === index };
     });
+    switchOnFilter();
+    filterTasks(e.target.innerText);
     setSidebarItems(updatedSidebarItems);
   };
 
@@ -28,7 +33,7 @@ const SideNav = () => {
           className={`${styles.navItem} ${
             activeItem === index ? styles.active : ""
           }`}
-          onClick={() => handleItemClick(index)}
+          onClick={(e) => handleItemClick(e, index)}
         >
           <i className={`fas ${item.icon}`}></i>
           <span>{item.name}</span>

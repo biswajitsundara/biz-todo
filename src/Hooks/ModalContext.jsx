@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const ModalContext = createContext();
 
@@ -7,6 +7,10 @@ export const ModalProvider = ({ children }) => {
   const [modalData, setModalData] = useState({});
   const [taskData, setTaskData] = useState([]);
   const [isReadOnly, setIsReadOnly] = useState(false);
+  const [filteredTaskData, setFilteredTaskData] = useState([]);
+  const [isFilterOn, setisFilterOn] = useState(false);
+
+  useEffect(() => {}, [taskData]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -27,6 +31,24 @@ export const ModalProvider = ({ children }) => {
   const saveTaskData = (data) => {
     const taskInfo = [...taskData, data];
     setTaskData(taskInfo);
+  };
+
+  const switchOnFilter = () => {
+    setisFilterOn(true);
+  };
+
+  const filterTasks = (filterText) => {
+    if (taskData.length > 1 && filterText != null) {
+      if (isFilterOn && filterText === "Dashboard") {
+        setFilteredTaskData([]);
+        setisFilterOn(false);
+      } else {
+        const updatedTaskData = taskData.filter(
+          (task) => task.taskCategory === filterText
+        );
+        setFilteredTaskData(updatedTaskData);
+      }
+    }
   };
 
   const readTaskData = (id) => {
@@ -63,6 +85,10 @@ export const ModalProvider = ({ children }) => {
         closeModal,
         saveTaskData,
         deleteTaskData,
+        filterTasks,
+        filteredTaskData,
+        switchOnFilter,
+        isFilterOn,
       }}
     >
       {children}

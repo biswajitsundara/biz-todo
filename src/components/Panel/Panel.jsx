@@ -5,9 +5,9 @@ const Panel = ({ taskid, taskname, taskCategory, taskdesc }) => {
   const { deleteTaskData, editTaskData, readTaskData } = useModal();
 
   const panelTypes = {
-    todos: "info",
-    tasks: "primary",
-    notes: "secondary",
+    Todos: "info",
+    Tasks: "primary",
+    Notes: "secondary",
   };
 
   const handleEditTask = (taskid) => {
