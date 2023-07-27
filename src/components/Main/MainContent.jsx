@@ -4,9 +4,9 @@ import "../../../src/assets/addnotes.svg";
 import "./MainContent.css";
 
 const MainContent = () => {
-  const { taskData } = useModal();
+  const { taskData, filteredTaskData, isFilterOn } = useModal();
 
-  if (taskData.length < 1) {
+  if (taskData.length < 1 || (isFilterOn && filteredTaskData.length < 1)) {
     return (
       <div data-testid="maincontent">
         <div className="noData">
@@ -23,15 +23,25 @@ const MainContent = () => {
 
   return (
     <div data-testid="maincontent">
-      {taskData.map((tasks) => (
-        <Panel
-          key={tasks.id}
-          taskid={tasks.id}
-          taskname={tasks.taskname}
-          taskdesc={tasks.taskDesc}
-          taskCategory={tasks.taskCategory}
-        />
-      ))}
+      {isFilterOn
+        ? filteredTaskData.map((task) => (
+            <Panel
+              key={task.id}
+              taskid={task.id}
+              taskname={task.taskname}
+              taskdesc={task.taskDesc}
+              taskCategory={task.taskCategory}
+            />
+          ))
+        : taskData.map((task) => (
+            <Panel
+              key={task.id}
+              taskid={task.id}
+              taskname={task.taskname}
+              taskdesc={task.taskDesc}
+              taskCategory={task.taskCategory}
+            />
+          ))}
     </div>
   );
 };

@@ -102,9 +102,9 @@ const Modal = () => {
               disabled={isReadOnly}
             >
               <option value="">Select Category</option>
-              <option value="todos">Todos</option>
-              <option value="tasks">Tasks</option>
-              <option value="notes">Notes</option>
+              <option value="Todos">Todos</option>
+              <option value="Tasks">Tasks</option>
+              <option value="Notes">Notes</option>
             </select>
 
             <textarea
