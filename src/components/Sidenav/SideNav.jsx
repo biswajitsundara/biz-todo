@@ -10,7 +10,7 @@ const items = [
 ];
 
 const SideNav = () => {
-  const { filterTasks, switchOnFilter } = useModal();
+  const { filterTasks } = useModal();
 
   const [activeItem, setActiveItem] = useState(null);
   const [sidebarItems, setSidebarItems] = useState(items);
@@ -20,7 +20,7 @@ const SideNav = () => {
     const updatedSidebarItems = sidebarItems.map((item, i) => {
       return { ...item, isOpened: i === index };
     });
-    switchOnFilter();
+
     filterTasks(e.target.innerText);
     setSidebarItems(updatedSidebarItems);
   };
