@@ -8,7 +8,6 @@ export const ModalProvider = ({ children }) => {
   const [taskData, setTaskData] = useState([]);
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [filteredTaskData, setFilteredTaskData] = useState([]);
-  const [isFilterOn, setisFilterOn] = useState(false);
 
   useEffect(() => {}, [taskData]);
 
@@ -31,23 +30,17 @@ export const ModalProvider = ({ children }) => {
   const saveTaskData = (data) => {
     const taskInfo = [...taskData, data];
     setTaskData(taskInfo);
-  };
-
-  const switchOnFilter = () => {
-    setisFilterOn(true);
+    setFilteredTaskData(taskInfo);
   };
 
   const filterTasks = (filterText) => {
-    if (taskData.length > 1 && filterText != null) {
-      if (isFilterOn && filterText === "Dashboard") {
-        setFilteredTaskData([]);
-        setisFilterOn(false);
-      } else {
-        const updatedTaskData = taskData.filter(
-          (task) => task.taskCategory === filterText
-        );
-        setFilteredTaskData(updatedTaskData);
-      }
+    if (filterText === "Dashboard") {
+      setFilteredTaskData(taskData);
+    } else {
+      const updatedTaskData = taskData.filter(
+        (task) => task.taskCategory === filterText
+      );
+      setFilteredTaskData(updatedTaskData);
     }
   };
 
@@ -64,11 +57,13 @@ export const ModalProvider = ({ children }) => {
     );
 
     setTaskData(updatedTaskData);
+    setFilteredTaskData(updatedTaskData);
   };
 
   const deleteTaskData = (id) => {
     const updatedTaskData = taskData.filter((task) => task.id != id);
     setTaskData(updatedTaskData);
+    setFilteredTaskData(updatedTaskData);
   };
 
   return (
@@ -87,8 +82,6 @@ export const ModalProvider = ({ children }) => {
         deleteTaskData,
         filterTasks,
         filteredTaskData,
-        switchOnFilter,
-        isFilterOn,
       }}
     >
       {children}
