@@ -44,6 +44,13 @@ export const ModalProvider = ({ children }) => {
     }
   };
 
+  const filterTaskData = (filterText) => {
+    const updatedTaskData = taskData.filter((task) =>
+      task.taskDesc.includes(filterText)
+    );
+    setFilteredTaskData(updatedTaskData);
+  };
+
   const readTaskData = (id) => {
     const taskInfo = taskData.filter((task) => task.id === id);
     setModalData(taskInfo[0]);
@@ -82,6 +89,7 @@ export const ModalProvider = ({ children }) => {
         deleteTaskData,
         filterTasks,
         filteredTaskData,
+        filterTaskData,
       }}
     >
       {children}
