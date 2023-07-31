@@ -40,6 +40,7 @@
 
 .modal-body {
   padding: 30px;
+  padding-top: 0px;
 }
 
 .modal-footer {
@@ -159,3 +160,7 @@ select:disabled {
   pointer-events: none;
 }
 
+.error-msg {
+  color: tomato;
+  font-size: 14px;
+}
