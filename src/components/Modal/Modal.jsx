@@ -17,6 +17,7 @@ const Modal = () => {
   const [taskDesc, setTaskDesc] = useState("");
   const [taskCategory, setTaskCategory] = useState("");
   const [headingText, setHeadingText] = useState("");
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (Object.keys(modalData).length != 0) {
@@ -31,38 +32,52 @@ const Modal = () => {
     }
   }, [modalData]);
 
+  const resetError = () => {
+    if (showError) {
+      setShowError(false);
+    }
+  };
+
   const handleTaskChange = (event) => {
     setTaskName(event.target.value);
+    resetError();
   };
 
   const handleDescChange = (event) => {
     setTaskDesc(event.target.value);
+    resetError();
   };
 
   const handleCategoryChange = (event) => {
     setTaskCategory(event.target.value);
+    resetError();
   };
 
   const resetModalData = () => {
     setTaskName("");
     setTaskDesc("");
     setTaskCategory("");
+    setShowError(false);
   };
 
   const handleSave = () => {
-    const newData = { taskname, taskDesc, taskCategory };
-
-    const modalDataExists = Object.keys(modalData).length !== 0;
-    if (modalDataExists) {
-      newData.id = modalData.id;
-      updateTaskData(newData);
+    if (!taskname.trim() || !taskDesc.trim() || !taskCategory.trim()) {
+      setShowError(true);
     } else {
-      newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-      saveTaskData(newData);
-    }
+      const newData = { taskname, taskDesc, taskCategory };
 
-    resetModalData();
-    closeModal();
+      const modalDataExists = Object.keys(modalData).length !== 0;
+      if (modalDataExists) {
+        newData.id = modalData.id;
+        updateTaskData(newData);
+      } else {
+        newData.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+        saveTaskData(newData);
+      }
+
+      resetModalData();
+      closeModal();
+    }
   };
 
   const handleCancel = () => {
@@ -82,16 +97,26 @@ const Modal = () => {
         </div>
         <div className="modal-title">
           <h2>{headingText}</h2>
+          {showError && (
+            <p className="error-msg">
+              Please fill in all the fields: {taskname.trim() ? "" : "name "}
+              {taskCategory.trim() ? "" : "category "}
+              {taskDesc.trim() ? "" : "details"}
+            </p>
+          )}
         </div>
         <div className="modal-body">
           <form>
             <input
               type="text"
-              placeholder="Enter Task Summary"
+              placeholder="Enter Task Name"
               name="task-summary"
               value={taskname}
               onChange={handleTaskChange}
               readOnly={isReadOnly}
+              style={{
+                borderColor: showError && !taskname.trim() ? "red" : "",
+              }}
               required
             />
 
@@ -100,6 +125,9 @@ const Modal = () => {
               value={taskCategory}
               onChange={handleCategoryChange}
               disabled={isReadOnly}
+              style={{
+                borderColor: showError && !taskCategory.trim() ? "red" : "",
+              }}
             >
               <option value="">Select Category</option>
               <option value="Todos">Todos</option>
@@ -115,6 +143,9 @@ const Modal = () => {
               value={taskDesc}
               onChange={handleDescChange}
               readOnly={isReadOnly}
+              style={{
+                borderColor: showError && !taskDesc.trim() ? "red" : "",
+              }}
             />
           </form>
         </div>
