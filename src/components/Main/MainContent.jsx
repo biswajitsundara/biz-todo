@@ -1,5 +1,6 @@
 import Panel from "../Panel/Panel";
 import { useModal } from "../../Hooks/ModalContext";
+import noteimg from './../../assets/addnotes.svg';
 import "./MainContent.css";
 
 const MainContent = () => {
@@ -11,7 +12,7 @@ const MainContent = () => {
         <div className="noData">
           <h1 className="nodataHeader">You don't have any tasks</h1>
           <img
-            src="./../../assets/addnotes.svg"
+            src={noteimg}
             alt="add notes"
             className="noteImage"
           />
